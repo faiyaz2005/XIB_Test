@@ -1,6 +1,6 @@
 package com.xib.agentservices.controller.dto;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class AgentDto extends BaseDto {
 
@@ -10,18 +10,8 @@ public class AgentDto extends BaseDto {
 
 	private String idNumber;
 
-	private List<TeamDto> teams;
-
 	public String getFirstName() {
 		return firstName;
-	}
-
-	public List<TeamDto> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(List<TeamDto> teams) {
-		this.teams = teams;
 	}
 
 	public void setFirstName(String firstName) {

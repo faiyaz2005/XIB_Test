@@ -15,4 +15,6 @@ public interface AgentService {
 	void deleteById(Long id);
 
 	Page<Agent> getList(Pageable pageable);
+
+    void attachManagerToAgent(Long id, Long idManager);
 }

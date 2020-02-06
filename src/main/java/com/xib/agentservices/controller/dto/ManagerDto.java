@@ -1,5 +1,7 @@
 package com.xib.agentservices.controller.dto;
 
+import java.util.List;
+
 public class ManagerDto extends BaseDto {
 
 	private String firstName;

@@ -1,9 +1,6 @@
 package com.xib.agentservices.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +11,9 @@ public class Team {
     private Long id;
     private String name;
 
+    @OneToMany(mappedBy = "team")
+    private Set<Agent> agents = new HashSet<>();
+
     @ManyToMany(mappedBy = "teams")
     private Set<Manager> managers = new HashSet<>();
 
@@ -22,6 +22,14 @@ public class Team {
 
     public Team(String name) {
         this.name = name;
+    }
+
+    public Set<Agent> getAgents() {
+        return agents;
+    }
+
+    public void setAgents(Set<Agent> agents) {
+        this.agents = agents;
     }
 
     public Long getId() {

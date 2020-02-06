@@ -1,6 +1,7 @@
 package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Agent;
+import com.xib.agentservices.entity.Manager;
 import com.xib.agentservices.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,9 @@ public class AgentServiceImpl implements AgentService {
 
 	@Autowired
 	AgentRepository agentRepository;
+
+	@Autowired
+	ManagerService managerService;
 
 	@Transactional
 	@Override
@@ -41,5 +45,15 @@ public class AgentServiceImpl implements AgentService {
 	@Override
 	public Page<Agent> getList(Pageable pageable) {
 		return agentRepository.findAll(pageable);
+	}
+
+	@Transactional
+	@Override
+	public void attachManagerToAgent(Long id, Long idManager) {
+		Agent agent = getAgent(id);
+
+		Manager manager = managerService.getManager(idManager);
+
+		agent.setManager(manager);
 	}
 }

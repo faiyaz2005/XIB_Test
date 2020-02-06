@@ -1,7 +1,7 @@
 package com.xib.agentservices.mapper;
 
-import com.xib.agentservices.controller.dto.TeamDto;
-import com.xib.agentservices.entity.Team;
+import com.xib.agentservices.controller.dto.ManagerDto;
+import com.xib.agentservices.entity.Manager;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueMappingStrategy;
@@ -9,12 +9,12 @@ import org.mapstruct.NullValueMappingStrategy;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface TeamMapper {
+public interface ManagerMapper {
 
-	Team dtoToTeam(TeamDto teamDto);
+	Manager dtoToManager(ManagerDto managerDto);
 
-	TeamDto teamToDto(Team team);
+	ManagerDto managerToDto(Manager manager);
 
 	@IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
-	List<TeamDto> teamsToDtoList(List<Team> agents);
+	List<ManagerDto> managersToDtoList(List<Manager> managers);
 }

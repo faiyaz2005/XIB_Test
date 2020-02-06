@@ -13,8 +13,12 @@ public class Agent {
     private String firstName;
     private String lastName;
     private String idNumber;
+
     @ManyToOne
     private Team team;
+
+    @ManyToOne
+    private Manager manager;
 
     public Agent() {
     }
@@ -24,6 +28,14 @@ public class Agent {
         this.lastName = lastName;
         this.idNumber = idNumber;
         this.team = team;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     public Long getId() {

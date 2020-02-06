@@ -1,13 +1,17 @@
 package com.xib.agentservices;
 
 import com.xib.agentservices.entity.Agent;
+import com.xib.agentservices.entity.Manager;
 import com.xib.agentservices.entity.Team;
 import com.xib.agentservices.service.AgentService;
+import com.xib.agentservices.service.ManagerService;
 import com.xib.agentservices.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class AssessmentApplication implements CommandLineRunner {
@@ -17,6 +21,9 @@ public class AssessmentApplication implements CommandLineRunner {
 
 	@Autowired
 	AgentService agentService;
+
+	@Autowired
+	ManagerService managerService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AssessmentApplication.class, args);
@@ -33,5 +40,10 @@ public class AssessmentApplication implements CommandLineRunner {
 		agentService.createAgent(new Agent("Peter", "Parker", "7801115190084", teamMarvel));
 		agentService.createAgent(new Agent("Bruce", "Wayne", "6511185190085", teamDC));
 		agentService.createAgent(new Agent("Clark", "Kent", "5905115190086",teamDC));
+
+		Long managerId = managerService.createManager(
+				new Manager("Test", "Manager", "34353535", null)).getId();
+
+		managerService.attachManagerToTeam(managerId, teamMarvel.getId());
 	}
 }
