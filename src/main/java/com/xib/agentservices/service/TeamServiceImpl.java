@@ -2,6 +2,7 @@ package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Agent;
 import com.xib.agentservices.entity.Team;
+import com.xib.agentservices.exception.CustomException;
 import com.xib.agentservices.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,12 +59,12 @@ public class TeamServiceImpl implements TeamService {
 		Agent agent = agentService.getAgent(agentId);
 
 		if(agent.getManager() == null)
-			throw new Exception("Attach agent to manager before");
+			throw new CustomException("Attach agent to manager before");
 
 		Team team = getTeam(id);
 
 		if(team.getManagers().stream().noneMatch(manager -> manager.getId().equals(agent.getManager().getId()))){
-			throw new Exception("No agent's manager in this team");
+			throw new CustomException("No agent's manager in this team");
 		}
 
 		agent.setTeam(team);
@@ -76,7 +77,7 @@ public class TeamServiceImpl implements TeamService {
 	public void attachManagerToTeam(Long id, Long idManager) throws Exception {
 		Team team = getTeam(id);
 		if(team.getManagers().size() >=2){
-			throw new Exception("Team already has 2 managers");
+			throw new CustomException("Team already has 2 managers");
 		}
 
 		managerService.attachManagerToTeam(idManager, team.getId());
