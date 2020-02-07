@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -41,7 +42,7 @@ public class TeamController {
 
     // ?page=0&size=20
     @GetMapping("teams/pagination")
-    public ResponseEntity<Page> getTeams(@ApiIgnore Pageable pageable, @ModelAttribute TeamFilter filter){
+    public ResponseEntity<Page> getTeams(@ApiIgnore @PageableDefault(size = 5) Pageable pageable, @ModelAttribute TeamFilter filter){
         Page<Team> teams = teamService.getListPage(pageable, filter);
 
         return ResponseEntity.ok(new PageImpl<>(teamMapper.teamsPageToDtoList(teams.getContent()), pageable, teams.getTotalElements()));

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -33,7 +34,7 @@ public class AgentController {
 
     // ?page=0&size=20
     @GetMapping("agents/pagination")
-    public ResponseEntity<Page> getAgents(@ApiIgnore Pageable pageable, @ModelAttribute AgentManagerFilter filter){
+    public ResponseEntity<Page> getAgents(@ApiIgnore @PageableDefault(size = 5)  Pageable pageable, @ModelAttribute AgentManagerFilter filter){
         Page<Agent> agents = agentService.getListPage(pageable, filter);
 
         return ResponseEntity.ok(new PageImpl<>(agentMapper.agentsPageToDtoList(agents.getContent()), pageable, agents.getTotalElements()));
