@@ -1,8 +1,11 @@
 package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Agent;
+import com.xib.agentservices.filter.AgentManagerFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface AgentService {
 
@@ -14,7 +17,9 @@ public interface AgentService {
 
 	void deleteById(Long id);
 
-	Page<Agent> getList(Pageable pageable);
+	Page<Agent> getListPage(Pageable pageable,  AgentManagerFilter filter);
+
+	List<Agent> getList();
 
     void attachManagerToAgent(Long id, Long idManager);
 }

@@ -3,6 +3,7 @@ package com.xib.agentservices.controller;
 import com.xib.agentservices.controller.dto.AgentDto;
 import com.xib.agentservices.controller.dto.BaseDto;
 import com.xib.agentservices.entity.Agent;
+import com.xib.agentservices.filter.AgentManagerFilter;
 import com.xib.agentservices.mapper.AgentMapper;
 import com.xib.agentservices.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,18 @@ public class AgentController {
     }
 
     // ?page=0&size=20
-    @GetMapping("agents")
-    public ResponseEntity<Page> getAgents(@ApiIgnore Pageable pageable){
-        Page<Agent> agents = agentService.getList(pageable);
+    @GetMapping("agents/pagination")
+    public ResponseEntity<Page> getAgents(@ApiIgnore Pageable pageable, @ModelAttribute AgentManagerFilter filter){
+        Page<Agent> agents = agentService.getListPage(pageable, filter);
 
-        return ResponseEntity.ok(new PageImpl<>(agentMapper.agentsToDtoList(agents.getContent()), pageable, agents.getTotalElements()));
+        return ResponseEntity.ok(new PageImpl<>(agentMapper.agentsPageToDtoList(agents.getContent()), pageable, agents.getTotalElements()));
+    }
+
+    @GetMapping("agents")
+    public ResponseEntity getAgents(){
+        List<Agent> agents = agentService.getList();
+
+        return ResponseEntity.ok(agentMapper.agentsToDtoList(agents));
     }
 
     @PostMapping("agent")

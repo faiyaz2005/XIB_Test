@@ -1,6 +1,7 @@
 package com.xib.agentservices.mapper;
 
 import com.xib.agentservices.controller.dto.AgentDto;
+import com.xib.agentservices.controller.dto.AgentPageDto;
 import com.xib.agentservices.entity.Agent;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -15,6 +16,12 @@ public interface AgentMapper {
 
 	AgentDto agentToDto(Agent agent);
 
+	AgentPageDto agentageToDto(Agent agent);
+
 	@IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
 	List<AgentDto> agentsToDtoList(List<Agent> agents);
+
+	@IterableMapping(nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT)
+	List<AgentPageDto> agentsPageToDtoList(List<Agent> agents);
+
 }

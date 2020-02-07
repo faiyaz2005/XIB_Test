@@ -1,7 +1,9 @@
 package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Agent;
+import com.xib.agentservices.entity.AgentSpecification;
 import com.xib.agentservices.entity.Manager;
+import com.xib.agentservices.filter.AgentManagerFilter;
 import com.xib.agentservices.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class AgentServiceImpl implements AgentService {
@@ -43,8 +46,13 @@ public class AgentServiceImpl implements AgentService {
 	}
 
 	@Override
-	public Page<Agent> getList(Pageable pageable) {
-		return agentRepository.findAll(pageable);
+	public Page<Agent> getListPage(Pageable pageable,  AgentManagerFilter filter) {
+		return agentRepository.findAll(AgentSpecification.searchAgent(filter) ,pageable);
+	}
+
+	@Override
+	public List<Agent> getList() {
+		return agentRepository.findAll();
 	}
 
 	@Transactional

@@ -2,7 +2,9 @@ package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Agent;
 import com.xib.agentservices.entity.Team;
+import com.xib.agentservices.entity.TeamSpecification;
 import com.xib.agentservices.exception.CustomException;
+import com.xib.agentservices.filter.TeamFilter;
 import com.xib.agentservices.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,8 +51,13 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public Page<Team> getList(Pageable pageable) {
-		return teamRepository.findAll(pageable);
+	public List<Team> getList() {
+		return teamRepository.findAll();
+	}
+
+	@Override
+	public Page<Team> getListPage(Pageable pageable, TeamFilter filter) {
+		return teamRepository.findAll(TeamSpecification.searchTeam(filter),pageable);
 	}
 
 	@Transactional

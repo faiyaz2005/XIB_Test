@@ -2,6 +2,7 @@ package com.xib.agentservices.service;
 
 
 import com.xib.agentservices.entity.Team;
+import com.xib.agentservices.filter.TeamFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +18,9 @@ public interface TeamService {
 
 	void deleteById(Long id);
 
-	Page<Team> getList(Pageable pageable);
+	List<Team> getList();
+
+	Page<Team> getListPage(Pageable pageable, TeamFilter filter);
 
     void attachAgentToTeam(Long id, Long idAgent) throws Exception;
 

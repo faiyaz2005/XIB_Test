@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 public class Agent {
@@ -19,6 +20,18 @@ public class Agent {
 
     @ManyToOne
     private Manager manager;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Agent agent = (Agent) o;
+        return Objects.equals(id, agent.id) &&
+                Objects.equals(firstName, agent.firstName) &&
+                Objects.equals(lastName, agent.lastName) &&
+                Objects.equals(idNumber, agent.idNumber);
+    }
+
 
     public Agent() {
     }

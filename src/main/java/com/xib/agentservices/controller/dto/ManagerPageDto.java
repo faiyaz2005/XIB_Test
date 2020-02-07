@@ -2,23 +2,13 @@ package com.xib.agentservices.controller.dto;
 
 import java.util.List;
 
-public class ManagerDto extends BaseDto {
+public class ManagerPageDto {
 
 	private String firstName;
 
 	private String lastName;
 
 	private String idNumber;
-
-	private List<TeamDto> teams;
-
-	public List<TeamDto> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(List<TeamDto> teams) {
-		this.teams = teams;
-	}
 
 	public String getFirstName() {
 		return firstName;

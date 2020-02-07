@@ -1,6 +1,8 @@
 package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Manager;
+import com.xib.agentservices.entity.ManagerSpecification;
+import com.xib.agentservices.filter.AgentManagerFilter;
 import com.xib.agentservices.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -45,7 +48,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public Page<Manager> getList(Pageable pageable) {
-		return managerRepository.findAll(pageable);
+	public Page<Manager> getListPage(Pageable pageable, AgentManagerFilter filter) {
+		return managerRepository.findAll(ManagerSpecification.searchManager(filter),pageable);
+	}
+
+	@Override
+	public List<Manager> getList() {
+		return managerRepository.findAll();
 	}
 }

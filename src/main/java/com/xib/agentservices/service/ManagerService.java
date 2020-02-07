@@ -1,8 +1,11 @@
 package com.xib.agentservices.service;
 
 import com.xib.agentservices.entity.Manager;
+import com.xib.agentservices.filter.AgentManagerFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface ManagerService {
 
@@ -16,5 +19,7 @@ public interface ManagerService {
 
 	void attachManagerToTeam(Long managerId, Long teamId);
 
-	Page<Manager> getList(Pageable pageable);
+	Page<Manager> getListPage(Pageable pageable, AgentManagerFilter filter);
+
+	List<Manager> getList();
 }
